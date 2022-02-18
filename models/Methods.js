@@ -4,4 +4,12 @@ function compareTime(time) {
     return nowTime <= time
 }
 
-module.exports = { compareTime }
+//轉換time格式
+function formatTime(timeString) {
+    return timeString.replace(/T/, ' ').replace(/Z/, '')
+}
+
+module.exports = {
+    compareTime,
+    formatTime
+}

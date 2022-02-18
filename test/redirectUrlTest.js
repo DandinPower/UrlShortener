@@ -1,7 +1,4 @@
 let { assert, should } = require('chai')
-const express = require('express')
-const database = require('../database/index')
-const axios = require('axios')
 const app = require('../app')
 const chaiHttp = require('chai-http')
 const chai = require('chai')
@@ -29,9 +26,19 @@ describe('test', async () => {
         chai.request(app)
             .get('/test')
             .end((err, res) => {
-                assert(404, res.status)
-                assert("can't find url", res.text)
-                done();
+                assert.equal(404, res.status)
+                assert.equal("can't find url", res.text)
+                done()
+            })
+    })
+
+    it("測試輸入錯誤的url_id", (done) => {
+        chai.request(app)
+            .get('/9999')
+            .end((err, res) => {
+                assert.equal(404, res.status)
+                assert.equal("can't find url", res.text)
+                done()
             })
     })
 
@@ -40,10 +47,10 @@ describe('test', async () => {
         chai.request(app)
             .get(`/1`)
             .end((err, res) => {
-                assert(404, res.status)
-                assert("expired", res.text)
+                assert.equal(404, res.status)
+                assert.equal("expired", res.text)
                 console.log(res.text)
-                done();
+                done()
             })
     })
 
@@ -52,9 +59,9 @@ describe('test', async () => {
         chai.request(app)
             .get(`/2`)
             .end((err, res) => {
-                assert(200, res.status)
-                assert('http://google.com', res.redirects[0])
-                done();
+                assert.equal(200, res.status)
+                assert.equal('http://google.com/', res.redirects[0])
+                done()
             })
     })
 

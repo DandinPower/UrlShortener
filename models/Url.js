@@ -1,5 +1,6 @@
 const express = require('express')
 const database = require('../database/index')
+const Methods = require('../models/Methods')
 
 class Url {
 
@@ -18,6 +19,7 @@ class Url {
             var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
             if (RegExp.test(value)) {
                 this.originalUrl = value
+                this.state = true
             }
             else {
                 this.fail = "wrong url"
@@ -36,6 +38,7 @@ class Url {
             }
             else {
                 this.expireAt = value
+                this.state = true
             }
         }
     }
@@ -70,16 +73,11 @@ class Url {
         return this.fail
     }
 
-    //轉換time格式
-    formatTime() {
-        this.expireAt = this.expireAt.replace(/T/, ' ').replace(/Z/, '')
-    }
-
     //初始化參數
     async saveUrl() {
         if (this.state == false)
             return
-        this.formatTime()
+        this.expireAt = Methods.formatTime(this.expireAt)
         let sql = `insert into url (originalUrl,expireAt) values("${this.originalUrl}","${this.expireAt}");`
         try {
             const result = await database.sqlConnection(sql)
