@@ -1,13 +1,7 @@
 let { assert, should } = require('chai')
-const express = require('express')
-const database = require('../database/index')
-const axios = require('axios')
-const app = require('../app')
 const chaiHttp = require('chai-http')
 const chai = require('chai')
-const expect = require('chai').expect
 const Url = require('../models/Url')
-const Methods = require('../models/Methods')
 
 describe('UrlTest', async () => {
 
