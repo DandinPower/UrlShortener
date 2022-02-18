@@ -10,6 +10,7 @@ router.get('/:url_id', async (req, res, next) => {
     url.setId(url_id)
     await url.findUrl()
     if (url.getState()) {
+        console.log(url.getExpireAt())
         if (Methods.compareTime(url.getExpireAt())) {
             res.redirect(302, url.getOriginalUrl())
         }

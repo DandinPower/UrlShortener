@@ -1,6 +1,8 @@
 const express = require('express')
 const database = require('../database/index')
 const Methods = require('../models/Methods')
+const Redis = require('../database/redisClient')
+require('dotenv/config')
 
 class Url {
 
@@ -41,6 +43,13 @@ class Url {
                 this.state = true
             }
         }
+    }
+
+    //設置正確的狀態
+    setAll(value) {
+        this.state = true
+        this.originalUrl = value.originalUrl
+        this.expireAt = value.expireAt
     }
 
     //設置id
@@ -95,23 +104,28 @@ class Url {
     //根據id查找數據
     async findUrl() {
         const sql = `select originalUrl,expireAt from url where id = ${this.id};`
-        try {
-            const result = await database.sqlConnection(sql)
-            console.log(result)
-            if (result.length != 0) {
-                this.state = true
-                this.originalUrl = result[0].originalUrl
-                this.expireAt = result[0].expireAt
-                return
-            }
-            this.state = false
-            return
-
-        } catch (err) {
-            console.log(err)
-            this.state = false
-            return
+        const value = await Redis.getHash(this.id)
+        this.state = false
+        if (value != null) {
+            this.setAll(value)
         }
+        else {
+            try {
+                const result = await database.sqlConnection(sql)
+                console.log(result)
+                if (result.length != 0) {
+                    let value = {
+                        "originalUrl": result[0].originalUrl,
+                        "expireAt": result[0].expireAt
+                    }
+                    await Redis.setHash(this.id, value)
+                    this.setAll(value)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
     }
 }
 
