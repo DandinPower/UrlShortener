@@ -43,7 +43,7 @@ describe('test', async () => {
                 assert(404, res.status)
                 assert("expired", res.text)
                 console.log(res.text)
-                done()
+                done();
             })
     })
 
@@ -54,7 +54,7 @@ describe('test', async () => {
             .end((err, res) => {
                 assert(200, res.status)
                 assert('http://google.com', res.redirects[0])
-                done()
+                done();
             })
     })
 

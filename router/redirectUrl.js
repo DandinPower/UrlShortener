@@ -1,23 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const Url = require('../models/Url')
+const Methods = require('../models/Methods')
 
-function compareTime(time) {
-    var nowTime = new Date(Date.now())
-    return nowTime <= time
-}
-
+//根據給定的短網址回傳原始的url
 router.get('/:url_id', async (req, res, next) => {
     var url_id = req.params.url_id
-    console.log(url_id)
     var url = new Url(url_id)
     url.setId(url_id)
     await url.findUrl()
-
     if (url.getState()) {
-        if (compareTime(url.getExpireAt())) {
+        if (Methods.compareTime(url.getExpireAt())) {
             res.redirect(302, url.getOriginalUrl())
-            return
         }
         else {
             res.status(404).send("expired")
