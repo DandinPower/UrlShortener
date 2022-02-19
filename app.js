@@ -17,6 +17,8 @@ app.use('/api/v1/urls', uploadUrl)
 app.use('/', redirectUrl)
 
 app.listen(process.env.PORT, () => {        //伺服器運行的Function
+    console.log(process.env.MYSQL_HOST)
+    console.log(process.env.REDIS_HOST)
     console.log(`Server running at http://localhost:${process.env.PORT}`)  //運作提示字樣
 })
 
