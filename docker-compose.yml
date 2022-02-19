@@ -21,7 +21,6 @@ services:
     container_name: 'express'
     image: 'express'
     build: ./
-    environment:
     restart: always
     ports:
     - 5001:5000
