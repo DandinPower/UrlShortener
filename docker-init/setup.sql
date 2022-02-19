@@ -1,4 +1,4 @@
-drop database UrlShortener;
+#drop database UrlShortener;
 create database UrlShortener;
 use UrlShortener;
 
