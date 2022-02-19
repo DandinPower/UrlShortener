@@ -1,5 +1,5 @@
 const redis = require('redis')
-const redisClient = redis.createClient({ socket: { port: process.env.REDIS_PORT }, legacyMode: true })
+const redisClient = redis.createClient({ host: process.env.REDIS_ENDPOINT, legacyMode: true })
 redisClient.connect()
 
 //透過key取得json
