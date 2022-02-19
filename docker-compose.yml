@@ -17,13 +17,16 @@ services:
     restart: always
     ports:
       - 6380:6379
-  server:
-    container_name: 'express'
-    image: 'express'
-    build: ./
+  backend:
+    container_name: 'express-backend'
+    image: 'express-backend'
+    build: .
     restart: always
     ports:
     - 8080:80
+    environment:
+      MYSQL_PORT: 3307
+      REDIS_PORT: 6380
     depends_on:
       - database
       - cache
