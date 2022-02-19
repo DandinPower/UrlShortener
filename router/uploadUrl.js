@@ -2,9 +2,10 @@ require('dotenv/config')
 const express = require('express')
 const router = express.Router()
 const Url = require('../models/Url')
+const Methods = require('../models/Methods')
 
 //給定url以及過期時間來取得其對應的短網址
-router.post('/', async (req, res, next) => {
+router.post('/', Methods.checkUrl, Methods.checkTime, async (req, res, next) => {
     var originalUrl = req.body.url
     var expireAt = req.body.expireAt
     var url = new Url()

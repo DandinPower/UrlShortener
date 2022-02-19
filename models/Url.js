@@ -17,32 +17,12 @@ class Url {
 
     //設置originalUrl
     setOriginalUrl(value) {
-        if (this.state == true | this.state == null) {
-            var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-            if (RegExp.test(value)) {
-                this.originalUrl = value
-                this.state = true
-            }
-            else {
-                this.fail = "wrong url"
-                this.state = false
-            }
-        }
+        this.originalUrl = value
     }
 
     //設置expireAt
     setExpireAt(value) {
-        if (this.state == true | this.state == null) {
-            let isValidDate = Date.parse(value)
-            if (isNaN(isValidDate)) {
-                this.fail = "wrong time"
-                this.state = false
-            }
-            else {
-                this.expireAt = value
-                this.state = true
-            }
-        }
+        this.expireAt = value
     }
 
     //設置正確的狀態

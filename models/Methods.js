@@ -31,8 +31,32 @@ function addHours(time) {
     return time
 }
 
+//檢查url的middleware
+function checkUrl(req, res, next) {
+    var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    if (RegExp.test(req.body.url)) {
+        next()
+    }
+    else {
+        res.status(404).send('wrong url')
+    }
+}
+
+//檢查時間格式的middleware
+function checkTime(req, res, next) {
+    let isValidDate = Date.parse(req.body.expireAt)
+    if (isNaN(isValidDate)) {
+        res.status(404).send('wrong time')
+    }
+    else {
+        next()
+    }
+}
+
 module.exports = {
     compareTime,
     addHours,
-    formatTime
+    formatTime,
+    checkUrl,
+    checkTime
 }

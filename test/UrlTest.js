@@ -30,32 +30,6 @@ describe('UrlTest', async () => {
         done()
     })
 
-    it("測試setOriginalUrl", (done) => {
-        let url = new Url()
-        let goodUrl = 'http://google.com'
-        let badUrl = '123.com.tw'
-        url.setOriginalUrl(goodUrl)
-        assert.equal('undefined', url.getFail())
-        assert.isTrue(url.getState())
-        url.setOriginalUrl(badUrl)
-        assert.equal('wrong url', url.getFail())
-        assert.isFalse(url.getState())
-        done()
-    })
-
-    it("測試setExpireAt", (done) => {
-        let url = new Url()
-        let goodTime = '2021-02-17T18:55:00.000Z'
-        let badTime = '20222-12-33 33:12:1'
-        url.setExpireAt(goodTime)
-        assert.equal('undefined', url.getFail())
-        assert.isTrue(url.getState())
-        url.setExpireAt(badTime)
-        assert.equal('wrong time', url.getFail())
-        assert.isFalse(url.getState())
-        done()
-    })
-
     it("測試saveUrl", async () => {
         let url = new Url()
         let goodTime = '2021-02-17T18:55:00.000Z'
