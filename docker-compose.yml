@@ -19,7 +19,6 @@ services:
       - 6379:6379
   backend:
     container_name: 'backend'
-    image: 'backend'
     build: ./
     restart: always
     ports:
@@ -28,6 +27,7 @@ services:
       MYSQL_PORT: 3306
       REDIS_PORT: 6379
       REDIS_HOST: redis
+      MYSQL_HOST: mysql
       REDIS_ENDPOINT: redis:6379
     depends_on:
       - mysql
