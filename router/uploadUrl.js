@@ -1,3 +1,4 @@
+require('dotenv/config')
 const express = require('express')
 const router = express.Router()
 const Url = require('../models/Url')
@@ -13,7 +14,7 @@ router.post('/', async (req, res, next) => {
     if (url.getState()) {
         res.status(200).json({
             "id": url.getId(),
-            "shortUrl": `http://localhost:5000/${url.getId()}`
+            "shortUrl": `http://localhost:${process.env.PORT}/${url.getId()}`
         })
     }
     else {

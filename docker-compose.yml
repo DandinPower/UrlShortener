@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     restart: always
     ports:
-      - 3307:3306
+      - 3306:3306
     volumes:
       - ./docker-init:/docker-entrypoint-initdb.d
   cache:
@@ -16,17 +16,17 @@ services:
     command: redis-server
     restart: always
     ports:
-      - 6380:6379
+      - 6379:6379
   backend:
-    container_name: 'express-backend'
-    image: 'express-backend'
-    build: .
+    container_name: 'backend'
+    image: 'backend'
+    build: ./
     restart: always
     ports:
-    - 8080:80
+    - 80:80
     environment:
-      MYSQL_PORT: 3307
-      REDIS_PORT: 6380
+      MYSQL_PORT: 3306
+      REDIS_PORT: 6379
     depends_on:
       - database
       - cache
