@@ -1,33 +1,30 @@
+require('dotenv/config')
 const redis = require('redis')
-const redisClient = redis.createClient({ host: process.env.REDIS_ENDPOINT, legacyMode: true })
+const redisUrl = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
+const config = {
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT
+}
+const redisClient = redis.createClient(config)
 redisClient.connect()
+redisClient.on('connect', () => console.log('Connected to redis server'))
 
 //透過key取得json
 async function getHash(key) {
-    return new Promise((resolve, reject) => {
-        redisClient.hGetAll(key, (err, res) => {
-            if (err) {
-                reject(err)
-            } else {
-                if (res.length != 0) {
-                    let value = {
-                        "originalUrl": res[1],
-                        "expireAt": new Date(res[3])
-                    }
-                    resolve(value)
-                }
-                else {
-                    resolve(null)
-                }
-            }
-        })
-    })
+    const result = await redisClient.hGetAll(key)
+    let value = {
+        "originalUrl": result.originalUrl,
+        "expireAt": new Date(result.expireAt)
+    }
+    if (value.originalUrl == undefined)
+        value = null
+    return value
 }
 
 //設置hash,value為json
 async function setHash(key, value) {
-    await redisClient.hSet(key, 'originalUrl', value.originalUrl)
-    await redisClient.hSet(key, 'expireAt', value.expireAt.toISOString())
+    await redisClient.HSET(key, 'originalUrl', value.originalUrl)
+    await redisClient.HSET(key, 'expireAt', value.expireAt.toISOString())
 }
 
 module.exports = {

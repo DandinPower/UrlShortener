@@ -33,5 +33,10 @@ describe('RedisTest', async () => {
         let key = 'testSetHash'
         const result = await Redis.getHash(key)
         console.log(result)
+        assert.isNotNull(result)
+        key = 'testSetHash2'
+        let result2 = await Redis.getHash(key)
+        console.log(result2)
+        assert.isNull(result2)
     })
 })

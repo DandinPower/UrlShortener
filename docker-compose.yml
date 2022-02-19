@@ -10,7 +10,7 @@ services:
       - 3306:3306
     volumes:
       - ./docker-init:/docker-entrypoint-initdb.d
-  cache:
+  redis:
     container_name: 'redis'
     image: redis
     command: redis-server
@@ -27,6 +27,8 @@ services:
     environment:
       MYSQL_PORT: 3306
       REDIS_PORT: 6379
+      REDIS_HOST: redis
+      REDIS_ENDPOINT: redis:6379
     depends_on:
       - database
-      - cache
+      - redis
