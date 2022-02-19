@@ -1,6 +1,6 @@
 version: '3'
 services:
-  database:
+  mysql:
     container_name: 'mysql'
     image: mysql:8
     environment:
@@ -30,5 +30,5 @@ services:
       REDIS_HOST: redis
       REDIS_ENDPOINT: redis:6379
     depends_on:
-      - database
+      - mysql
       - redis
