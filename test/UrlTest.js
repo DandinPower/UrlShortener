@@ -81,8 +81,7 @@ describe('UrlTest', async () => {
         assert.isTrue(url.getState())
         assert.equal(goodUrl, url.getOriginalUrl())
         let time = url.getExpireAt()
-        time.setHours(time.getHours() + 8)
-        assert.isTrue(new Date(goodTime).getTime() == time.getTime())
+        assert.isTrue(goodTime == time)
     })
 
 })

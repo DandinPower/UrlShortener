@@ -32,9 +32,17 @@ describe('MethodsTest', async () => {
         done()
     })
 
+    it("測試addHours", (done) => {
+        let time = new Date('2021-02-17T18:55:00.000Z')
+        assert.equal('2021-02-18T02:55:00.000Z', Methods.addHours(time).toISOString())
+        time = new Date('2021-02-17T10:55:00.000Z')
+        assert.equal('2021-02-17T19:55:00.000Z', Methods.addHours(time).toISOString())
+        done()
+    })
+
     it("測試formatTime", (done) => {
         let timeString = '2021-02-17T18:55:00.000Z'
-        assert.equal('2021-02-17 18:55:00.000', Methods.formatTime(timeString))
+        assert.equal('2021-02-17T18:55:00.000Z', Methods.formatTime(timeString))
         done()
     })
 

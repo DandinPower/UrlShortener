@@ -23,7 +23,7 @@ async function getHash(key) {
 //設置hash,value為json
 async function setHash(key, value) {
     await redisClient.HSET(key, 'originalUrl', value.originalUrl)
-    await redisClient.HSET(key, 'expireAt', value.expireAt.toISOString())
+    await redisClient.HSET(key, 'expireAt', value.expireAt)
 }
 
 module.exports = {
