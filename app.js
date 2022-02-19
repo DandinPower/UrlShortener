@@ -16,7 +16,7 @@ app.use(limiter)
 app.use('/api/v1/urls', uploadUrl)
 app.use('/', redirectUrl)
 
-app.listen(process.env.PORT, () => {        //伺服器運行的Function
+app.listen(process.env.PORT || 3000, () => {        //伺服器運行的Function
     console.log(`Server listening at http://localhost:${process.env.PORT}`)  //運作提示字樣
 })
 
