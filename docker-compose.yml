@@ -23,7 +23,7 @@ services:
     build: ./
     restart: always
     ports:
-    - 5001:5000
+    - 8080:80
     depends_on:
       - database
       - cache
