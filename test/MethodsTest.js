@@ -36,7 +36,7 @@ describe('MethodsTest', async () => {
         let time = new Date('2021-02-17T18:55:00.000Z')
         assert.equal('2021-02-18T02:55:00.000Z', Methods.addHours(time).toISOString())
         time = new Date('2021-02-17T10:55:00.000Z')
-        assert.equal('2021-02-17T19:55:00.000Z', Methods.addHours(time).toISOString())
+        assert.equal('2021-02-17T18:55:00.000Z', Methods.addHours(time).toISOString())
         done()
     })
 
