@@ -1,0 +1,11 @@
+FROM node:12
+
+WORKDIR /UrlShortener
+
+ADD . /UrlShortener
+
+RUN cd /UrlShortener && npm install
+
+EXPOSE 5000
+
+CMD [ "node", "app.js" ]
