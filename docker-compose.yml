@@ -1,0 +1,19 @@
+version: '3'
+services:
+  database:
+    container_name: 'mysql'
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    ports:
+      - 3307:3306
+    volumes:
+      - ./docker-init:/docker-entrypoint-initdb.d
+  cache:
+    container_name: 'redis'
+    image: redis
+    command: redis-server
+    restart: always
+    ports:
+      - 6380:6379
