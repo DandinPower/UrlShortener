@@ -22,7 +22,7 @@ function addHours(time) {
     console.log(time.getHours())
     console.log(newHours)
     if (newHours > 23) {
-        newHours = newHours - 23
+        newHours = newHours - 24
         newDate = 1
     }
     time.setDate(time.getDate() + newDate)
